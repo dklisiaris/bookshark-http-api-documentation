@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>Bookshark API Reference</title>
 
     <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","ruby","python"]);
+          setupLanguages(["shell"]);
         });
       </script>
   </head>
@@ -29,8 +29,6 @@
       <img src="images/logo.png" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -39,6 +37,7 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
+            <li><a href='#'>Bookshark Home</a></li>
             <li><a href='#'>Sign Up for a Developer Key</a></li>
             <li><a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
         </ul>
@@ -46,81 +45,92 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+        <h1 id="introduction">Introduction</h1>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>The <strong>Bookshark API</strong> is a book <em>metadata service</em> for books published in greek language. Metadata is the is the information (data) which describes other information (in this case: books). Currently all metadata are being extracted from <a href="http://biblionet.gr">biblionet.gr</a> in real time. </p>
 
-<p>This example API documentation page was created with <a href="http://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
+<p>You can search for a specific book by providing its <em>isbn</em> or its <em>biblionet id</em>. You can also perform more <em>advanced searches</em> by providing book&rsquo;s title, author, publishing date etc. and receive a collection of books. Beyond books, information about authors and publishers are available too. </p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">kittn</span>
+<p>All <strong>requests</strong> are done through <em>http</em>, so you build your url depending on what you want to search for and do the request. Currently all <strong>responses</strong> are in <em>json</em> format and you can choose pretty or minified json. </p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight shell"><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+<h1 id="audience">Audience</h1>
 
-<blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
-</blockquote>
+<p>This document is intended for website and mobile developers who want to use the bookshark API in order to collect and present information about greek books. 
+It provides a guide to using the API and reference material on the available parameters.</p>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<h1 id="books">Books</h1>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<h2 id="get-a-book">Get a book</h2>
+<pre><code class="highlight shell"><span class="c"># These commands extract the same book.</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/book?isbn=960-14-1157-7"</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/book?id=103788"</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/book/103788/"</span>
 
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
-
-<p><aside class="notice">
-You must replace <code class="prettyprint">meowmeowmeow</code> with your personal API key.
-</aside></p>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre>
-<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre><code class="highlight shell">curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
 </code></pre>
 
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>The above commands return JSON structured like this:</p>
 </blockquote>
-<pre><code class="highlight json"><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"book"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Σημεία και τέρατα της οικονομίας"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Η κρυφή πλευρά των πάντων"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.biblionet.gr/images/covers/b103788.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Steven D. Levitt"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"b_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59782"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Stephen J. Dubner"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"b_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59783"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"contributors"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"μετάφραση"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Άγγελος Φιλιππάτος"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"b_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"851"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"publisher"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Εκδοτικός Οίκος Α. Α. Λιβάνη"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"b_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"271"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"publication_year"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2006"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pages"</span><span class="p">:</span><span class="w"> </span><span class="s2">"326"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"960-14-1157-7"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isbn_13"</span><span class="p">:</span><span class="w"> </span><span class="s2">"978-960-14-1157-6"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Κυκλοφορεί"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16,31"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"award"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Τι είναι πιο επικίνδυνο, ένα όπλο ή μια πισίνα; Τι κοινό έχουν οι δάσκαλοι με τους παλαιστές του σούμο;..."</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"ddc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"330"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Οικονομία"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"b_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"142"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"b_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"103788"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code class="prettyprint">GET http://example.com/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<p>This endpoint retrieves a specific book, based on its isbn, its biblionet id or url.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?parameters</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<p>In each request only one of isbn, id and uri should be used to specify the book.</p>
+
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -129,52 +139,385 @@ You must replace <code class="prettyprint">meowmeowmeow</code> with your persona
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>isbn</td>
+<td>empty</td>
+<td>The book&rsquo;s ISBN code.</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>id</td>
+<td>empty</td>
+<td>The book&rsquo;s id in biblionet site.</td>
+</tr>
+<tr>
+<td>uri</td>
+<td>empty</td>
+<td>The book&rsquo;s url in biblionet site.</td>
+</tr>
+<tr>
+<td>eager</td>
+<td>0</td>
+<td>If set to 1, it activates eager book extraction.</td>
 </tr>
 </tbody></table>
 
-<p><aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside></p>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h3 id="some-example-requests">Some example requests</h3>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">kittn</span>
+<p>Generally the preferable option is getting books by isbn. If the biblionet id is known then thats the fastest method. Here are some request examples which fetch the same book:</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight shell">curl <span class="s2">"http://example.com/api/kittens/3"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?isbn=960-14-1157-7</code></p>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?id=103788</code></p>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/book/103788/</code></p>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?isbn=978-960-14-1157-6</code></p>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?isbn=9789601411576</code></p>
+
+<aside class="success">
+Remember — ISBN can contain dashes or be a plain number. ISBN-13 is also acceptable.
+</aside>
+
+<h3 id="json-response">JSON Response</h3>
+
+<p>The response is in the format: <code class="prettyprint">{&quot;metadata-type&quot;: [{ metadata-hash }]}</code>
+Here are the metadata-hash keys for the book object:</p>
+
+<ul>
+<li>title</li>
+<li>subtitle</li>
+<li>image</li>
+<li>author (Array of authors or the string &lsquo;collective work&rsquo;)
+
+<ul>
+<li>name</li>
+<li>b_id</li>
+</ul></li>
+<li>contributors (Array of hashes)
+
+<ul>
+<li>job-hash (A hash in the form of job_name =&gt; [Array of authors])</li>
+</ul></li>
+<li>publisher
+
+<ul>
+<li>name</li>
+<li>b_id </li>
+</ul></li>
+<li>publication_year</li>
+<li>pages</li>
+<li>isbn</li>
+<li>isbn_13 (May be null, some books dont have isbn13)</li>
+<li>issn (May not be there)</li>
+<li>ismn (May not be there, only music books issn)</li>
+<li>status</li>
+<li>price</li>
+<li>award (Array of awards)
+
+<ul>
+<li>name</li>
+<li>year</li>
+</ul></li>
+<li>description</li>
+<li>category (Array of categories)
+
+<ul>
+<li>name</li>
+<li>ddc (Dewey Decimal Classification)</li>
+<li>b_id </li>
+</ul></li>
+<li>b_id</li>
+</ul>
+
+<aside class="warning">
+Be careful — Most of the above values may be null. Always check if a value is present before use.
+</aside>
+
+<h2 id="eager-load-a-book">Eager load a book</h2>
+<pre><code class="highlight shell"><span class="c"># These commands eager load the same book.</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/book?isbn=978-960-6640-84-1&amp;eager=1"</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/book?id=185281&amp;eager=1"</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/book/185281/&amp;eager=1"</span>
+
 </code></pre>
 
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>The above commands return JSON structured like this:</p>
 </blockquote>
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+  </span><span class="s2">"book"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Τα μαθηματικά της ζωής"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ξεκλειδώνοντας τα μυστικά της ύπαρξης"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.biblionet.gr/images/covers/b185281.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Stewart, Ian"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"firstname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ian"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"lastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Stewart"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"extra_info"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1945-"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.biblionet.gr/images/persons/4647.jpg"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"bio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ο Ίαν Στιούαρτ γεννήθηκε στην Αγγλία στο Folkestone..."</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"award"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"b_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4647"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"contributors"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"μετάφραση"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Αποστολόπουλος, Νίκος"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"firstname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Νίκος"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"lastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Αποστολόπουλος"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"extra_info"</span><span class="p">:</span><span class="w"> </span><span class="s2">"μεταφραστής"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"bio"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"award"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="s2">"b_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"86407"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"επιμέλεια"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Τάρτας, Αθανάσιος"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"firstname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Αθανάσιος"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"lastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Τάρτας"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"extra_info"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"bio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ο Αθανάσιος Τάρτας είναι βιολόγος-βιοχημικός, MSc, PhSD."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"award"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="s2">"b_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"105693"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"publisher"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Τραυλός"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Τραυλός Παναγιώτης"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"bookstores"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"Έδρα"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"Καλλιδρομίου 54Α"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"114 73 Αθήνα"</span><span class="w">
+              </span><span class="p">],</span><span class="w">
+              </span><span class="s2">"telephone"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"210 3814410"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"210 3813591"</span><span class="w">
+              </span><span class="p">],</span><span class="w">
+              </span><span class="s2">"fax"</span><span class="p">:</span><span class="w"> </span><span class="s2">"210 3828174"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"travl@acci.gr"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"website"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.travlos.gr"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"b_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"451"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"publication_year"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pages"</span><span class="p">:</span><span class="w"> </span><span class="s2">"572"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"978-960-6640-84-1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isbn_13"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Κυκλοφορεί"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22,00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"award"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"...Τα μυστικά της ύπαρξης, η ίδια η φύση της ζωής, δεν είναι απλώς ζήτημα βιοχημείας...."</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"192"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"ddc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Φυσικές και θετικές επιστήμες"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"parent"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"8344"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"ddc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Φυσικές και θετικές επιστήμες - Γενικά έργα"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"parent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"57"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"ddc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"510"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Μαθηματικά"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"parent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"_comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"More child categories are condensed..."</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"1429"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"ddc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"590"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ζωολογία"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"parent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"current"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"ddc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Φυσικές και θετικές επιστήμες"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"parent"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"b_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"_comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"More category trees are condensed..."</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"b_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"185281"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves a specific kitten.</p>
+<p>Each book has some attributes such as authors, contributors, categories etc which are actually references to other objects.
+By default when extracting a book, you get only names of these objects and references to their pages.
+With eager option set to true, each of these objects&rsquo; data is extracted and the produced output contains complete information about every object.
+You can enable eager loading by set eager parameter to 1.</p>
 
-<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside></p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<h3 id="some-example-requests">Some example requests</h3>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?isbn=960-14-1157-7&amp;eager=1</code></p>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?id=103788&amp;eager=1</code></p>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?isbn=978-960-14-1157-6&amp;eager=1</code></p>
+
+<h3 id="json-response">JSON Response</h3>
+
+<p>The response is in the same format as the plain book above: 
+<code class="prettyprint">{&quot;metadata-type&quot;: [{ metadata-hash }]}</code>, but with more attributes in authors, contributors, publishers and categories.
+Here are the metadata-hash keys for the book object:</p>
+
+<ul>
+<li>title</li>
+<li>subtitle</li>
+<li>image</li>
+<li>author (Array of authors)
+
+<ul>
+<li>name</li>
+<li>firstname</li>
+<li>lastname</li>
+<li>extra_info</li>
+<li>bio</li>
+<li>image</li>
+<li>award (Array of awards)</li>
+<li>name</li>
+<li>year</li>
+<li>b_id</li>
+</ul></li>
+<li>contributors (Array of hashes)
+
+<ul>
+<li>job-hash (A hash in the form of job_name =&gt; [Array of authors])</li>
+</ul></li>
+<li>publisher
+
+<ul>
+<li>name</li>
+<li>owner</li>
+<li>bookstores (A hash of bookstores in the form of bookstore_title =&gt; {bookstore-data}})</li>
+<li>address (Array of addresses)</li>
+<li>telephone (Array of telephones)</li>
+<li>fax</li>
+<li>email</li>
+<li>website</li>
+<li>b_id </li>
+</ul></li>
+<li>publication_year</li>
+<li>pages</li>
+<li>isbn</li>
+<li>isbn_13 (May be null, some books dont have isbn13)</li>
+<li>issn (May not be there)</li>
+<li>ismn (May not be there, only music books issn)</li>
+<li>status</li>
+<li>price</li>
+<li>award (Array of awards)
+
+<ul>
+<li>name</li>
+<li>year</li>
+</ul></li>
+<li>description</li>
+<li>category (Array of category hierarchies in form: category-id =&gt; category-data)
+
+<ul>
+<li>name</li>
+<li>ddc (Dewey Decimal Classification)</li>
+<li>b_id </li>
+<li>parent</li>
+</ul></li>
+<li>b_id</li>
+</ul>
+
+<aside class="warning">
+Warning — Eager loading of a book is very slow. It is better to normally extract a book and then extract metadata about a specific author or publisher.
+</aside>
+
+<h2 id="search-books">Search Books</h2>
+<pre><code class="highlight shell"><span class="c"># Get books with title ανδρομαχη by author ευριπιδης.</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/search?title=ανδρομαχη&amp;author=ευριπιδης"</span>
+<span class="c"># Get books with title χομπιτ by author τολκιν (setting results to metadata is optional because it is the default type anyway).</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/search?title=χομπιτ&amp;author=τολκιν&amp;results_type=metadata"</span>
+<span class="c"># Get only the ids of books with title χομπιτ by author τολκιν</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/search?title=αρχοντας&amp;author=τολκιν&amp;results_type=ids"</span>
+<span class="c"># Get books by author arthur doyle, published after 2010.</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/search?author=arthur%20doyle&amp;after_year=2010"</span>
+<span class="c"># Get books with isbn 978-960-14-1157-6</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/search?isbn=978-960-14-1157-6"</span>
+
+</code></pre>
+
+<blockquote>
+<p>Search results create a collection of books, same as if each book has been extracted on its own.</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"book"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Στης Χλόης τα απόκρυφα"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"…και άλλα σημεία και τέρατα"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"... Rest of Metadata ..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"... condensed ..."</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Σημεία και τέρατα της οικονομίας"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Η κρυφή πλευρά των πάντων"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"... Rest of Metadata ..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"... condensed ..."</span><span class="w">     
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Και άλλα σημεία και τέρατα από την ιστορία"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"... Rest of Metadata ..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"... condensed ..."</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Σημεία και τέρατα από την ιστορία"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"... Rest of Metadata ..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"... condensed ..."</span><span class="w">      
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Results with results_type option set to ids look like this:</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+ </span><span class="s2">"book"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"119000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"103788"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"87815"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"87812"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"15839"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"77381"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"46856"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"46763"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"33301"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Instead of getting a specific book by providing the book&rsquo;s isbn or id, a search function can be used to get one or more books based on some parameters. This is the only way to search for books when you don&rsquo;t know the isbn or you want to get a collection of more than one books.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/search?parameters</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<p>In each request only one of isbn, id and uri should be used to specify the book.</p>
+
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -182,74 +525,386 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the cat to retrieve</td>
+<td>isbn</td>
+<td>The book&rsquo;s ISBN code.</td>
+</tr>
+<tr>
+<td>id</td>
+<td>The book&rsquo;s id in biblionet site.</td>
+</tr>
+<tr>
+<td>uri</td>
+<td>The book&rsquo;s url in biblionet site.</td>
+</tr>
+<tr>
+<td>eager</td>
+<td>If set to 1, it activates eager book extraction.</td>
+</tr>
+<tr>
+<td>title</td>
+<td>The title of book to search</td>
+</tr>
+<tr>
+<td>author</td>
+<td>The author&rsquo;s last name is enough for filter the search</td>
+</tr>
+<tr>
+<td>publisher</td>
+<td>The publisher of book to search</td>
+</tr>
+<tr>
+<td>category</td>
+<td>The category of book to search</td>
+</tr>
+<tr>
+<td>title_split</td>
+<td>How the given title is matched, options are:<ul><li>0 The exact title phrase must by matched</li><li>1 Default - All the words in title must be matched in whatever order</li><li>2 At least one word should match</li></ul></td>
+</tr>
+<tr>
+<td>book_id</td>
+<td>Providing id means only one book should returned</td>
+</tr>
+<tr>
+<td>isbn</td>
+<td>The ISBN or ISBN13 of book to search</td>
+</tr>
+<tr>
+<td>author_id</td>
+<td>ID of the selected author</td>
+</tr>
+<tr>
+<td>publisher_id</td>
+<td>ID of the selected publisher</td>
+</tr>
+<tr>
+<td>category_id</td>
+<td>ID of the selected category</td>
+</tr>
+<tr>
+<td>after_year</td>
+<td>Published this year or later</td>
+</tr>
+<tr>
+<td>before_year</td>
+<td>Published this year or before</td>
+</tr>
+<tr>
+<td>results_type</td>
+<td>In what form are the returned results, options are:<ul><li>metadata - (Default) Every book is extracted and an array of metadata is</li><li>ids - Only ids are returned</li></ul></td>
 </tr>
 </tbody></table>
 
-          <h1 id='errors'>Errors</h1>
-<p><aside class="notice">This error section is stored in a separate file in <code class="prettyprint">includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the <code class="prettyprint">includes</code> folder and add them to the top of your <code class="prettyprint">index.md</code>&rsquo;s frontmatter. Files are included in the order listed.</aside></p>
+<aside class="notice">
+Searching and extracting several books can be very slow at times, so instead of extracting every single book you may prefer only the ids of found books. In that case pass the option `results_type: 'ids&rsquo;`.
+</aside>
 
-<p>The Kittn API uses the following error codes:</p>
+<h3 id="some-example-requests">Some example requests</h3>
+
+<p>It is recommended to use at least two parameters if you trying to get a specific book. Here some examples of search request</p>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/search?title=ανδρομαχη&amp;author=ευριπιδης</code></p>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/search?title=χομπιτ&amp;author=τολκιν&amp;results_type=metadata</code></p>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/search?author=arthur%20doyle&amp;after_year=2010</code></p>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/search?isbn=978-960-14-1157-6</code></p>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/search?title=αρχοντας&amp;author=τολκιν&amp;results_type=ids</code></p>
+
+<aside class="warning">
+Don&rsquo;t forget to url encode your requests 
+ie. http://bookshark.eu/api/v1/search?title=σημεια και τερατα should become http://bookshark.eu/api/v1/search?title=σημεια%20και%20τερατα before making the request.
+</aside>
+
+<h1 id="other-metadata-types">Other Metadata Types</h1>
+
+<h2 id="author">Author</h2>
+<pre><code class="highlight shell"><span class="c"># Extracts the author with that specific id.</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/author?id=10207"</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/author?url=http://www.biblionet.gr/author/10207/"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command return JSON structured like this:</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tolkien, John Ronald Reuel"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"firstname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Ronald Reuel"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tolkien"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"extra_info"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1892-1973"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.biblionet.gr/images/persons/10207.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"bio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ο John Ronald Reuel Tolkien, άγγλος φιλόλογος και συγγραφέας, γεννήθηκε το 1892 στην πόλη Μπλουμφοντέιν..."</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"award"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Benson Medal [The Royal Society of Literature]"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"year"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1966"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"b_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10207"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves a specific author, based on its biblionet id or url.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/author?parameters</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<p>In each request only one of id or uri should be used to specify an author.</p>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>Parameter</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request &ndash; Your request sucks</td>
+<td>id</td>
+<td>The author&rsquo;s id in biblionet site.</td>
 </tr>
 <tr>
-<td>401</td>
-<td>Unauthorized &ndash; Your API key is wrong</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slown down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+<td>uri</td>
+<td>The author&rsquo;s url in biblionet site.</td>
 </tr>
 </tbody></table>
+
+<h3 id="json-response">JSON Response</h3>
+
+<p>The response is in the format: <code class="prettyprint">{&quot;metadata-type&quot;: [{ metadata-hash }]}</code><br>
+Here are the metadata-hash keys for the author object:</p>
+
+<ul>
+<li>name</li>
+<li>firstname</li>
+<li>lastname</li>
+<li>extra_info</li>
+<li>bio</li>
+<li>image</li>
+<li>award (Array of awards)
+
+<ul>
+<li>name</li>
+<li>year</li>
+</ul></li>
+<li>b_id</li>
+</ul>
+
+<aside class="warning">
+Be careful — Most of the above values may be null. Always check if a value is present before use.
+</aside>
+
+<h2 id="publisher">Publisher</h2>
+<pre><code class="highlight shell"><span class="c"># Extracts the publisher with that specific id.</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/publisher?id=20"</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/publisher?url=http://biblionet.gr/com/20/"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command return JSON structured like this:</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"publisher"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Εκδόσεις Πατάκη"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Στέφανος Πατάκης"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"bookstores"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"Κεντρική διάθεση"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"Εμμ. Μπενάκη 16"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"106 78 Αθήνα"</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"telephone"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"210 3831078"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"Γενικό βιβλιοπωλείο Πατάκη"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"Ακαδημίας 65"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"106 78 Αθήνα"</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"telephone"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"210 3811850"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"210 3811740"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"Έδρα"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"Παναγή Τσαλδάρη 38 (πρ. Πειραιώς)"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"104 37 Αθήνα"</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"telephone"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"210 3650000"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"210 5205600"</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"fax"</span><span class="p">:</span><span class="w"> </span><span class="s2">"210 3650069"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"info@patakis.gr"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"website"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.patakis.gr"</span><span class="w">         
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"b_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves a specific publisher, based on its biblionet id or url.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/publisher?parameters</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<p>In each request only one of id or uri should be used to specify a publisher.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The publisher&rsquo;s id in biblionet site.</td>
+</tr>
+<tr>
+<td>uri</td>
+<td>The publisher&rsquo;s url in biblionet site.</td>
+</tr>
+</tbody></table>
+
+<h3 id="json-response">JSON Response</h3>
+
+<p>The response is in the format: <code class="prettyprint">{&quot;metadata-type&quot;: [{ metadata-hash }]}</code><br>
+Here are the metadata-hash keys for the publisher object:</p>
+
+<ul>
+<li>name</li>
+<li>owner</li>
+<li>bookstores (A hash of bookstores in the form of bookstore_title =&gt; {bookstore-data}})
+
+<ul>
+<li>address (Array of addresses)</li>
+<li>telephone (Array of telephones)</li>
+<li>fax</li>
+<li>email</li>
+<li>website</li>
+</ul></li>
+<li>b_id </li>
+</ul>
+
+<h2 id="category">Category</h2>
+<pre><code class="highlight shell"><span class="c"># Extracts the category and its parents/children with that specific id.</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/category?id=1041"</span>
+curl <span class="s2">"http://bookshark.eu/api/v1/category?url=http://biblionet.gr/index/1041/"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command return JSON structured like this:</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"192"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"ddc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Φυσικές και θετικές επιστήμες"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"parent"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"1040"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"ddc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"520"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Αστρονομία"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"parent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"1041"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"ddc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"523"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Πλανήτες"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"parent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1040"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"780"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"ddc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"523.01"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Αστροφυσική"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"parent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1041"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"2105"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"ddc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"523.083"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Πλανήτες - Βιβλία για παιδιά"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"parent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1041"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"576"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"ddc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"523.1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Κοσμολογία"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"parent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1041"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"current"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"ddc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"523"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Πλανήτες"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"parent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1040"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"b_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1041"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Each category&rsquo;s tree is extracted from root category to last child. An extra element with key=current is added to show which category was extracted.</p>
+</blockquote>
+
+<p>This endpoint retrieves a specific category&rsquo;s hierarchy, based on its biblionet id or url. This gets you metadata about that category and also about its parents and children.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/category?parameters</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<p>In each request only one of id or uri should be used to specify a category.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The category&rsquo;s id in biblionet site.</td>
+</tr>
+<tr>
+<td>uri</td>
+<td>The category&rsquo;s url in biblionet site.</td>
+</tr>
+</tbody></table>
+
+<h3 id="json-response">JSON Response</h3>
+
+<p>The response is in the format: <code class="prettyprint">{&quot;metadata-type&quot;: [{metadata-hash}]}</code><br>
+Here are the metadata-hash keys for the category object:</p>
+
+<p>Each category contains an array of category hierarchies in form: category-id =&gt; category-data </p>
+
+<ul>
+<li>name</li>
+<li>ddc (Dewey Decimal Classification)</li>
+<li>b_id </li>
+<li>parent</li>
+</ul>
+
+<aside class="notice">
+Only root category will have a root parent. When extracting a category, its whole tree from root parent to last child will be added ordered by ddc. An extra element with key equal current is added to show which category was extracted.
+</aside>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
           </div>
       </div>
     </div>
