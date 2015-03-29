@@ -16,7 +16,7 @@ search: true
 
 # Introduction
 
-The __Bookshark API__ is a book _metadata service_ for books published in greek language. Metadata is the is the information (data) which describes other information (in this case: books). Currently all metadata are being extracted from [biblionet.gr](http://biblionet.gr) in real time. 
+The __Bookshark API__ is a book _metadata service_ for books published in greek language. Metadata is the information (data) which describes other information (in this case: books). Currently all metadata are being extracted from [biblionet.gr](http://biblionet.gr) in real time. 
 
 You can search for a specific book by providing its _isbn_ or its _biblionet id_. You can also perform more _advanced searches_ by providing book's title, author, publishing date etc. and receive a collection of books. Beyond books, information about authors and publishers are available too. 
 
