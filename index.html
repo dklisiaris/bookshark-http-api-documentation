@@ -37,15 +37,15 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Bookshark Home</a></li>
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
+            <li><a href='http://bookshark.eu'>Bookshark Home</a></li>
+            <li><a href='http://bookshark.eu/api_keys'>Sign Up for a Developer Key</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="introduction">Introduction</h1>
+        
+          <h1 id="introduction">Introduction</h1>
 
 <p>The <strong>Bookshark API</strong> is a book <em>metadata service</em> for books published in greek language. Metadata is the information (data) which describes other information (in this case: books). Currently all metadata are being extracted from <a href="http://biblionet.gr">biblionet.gr</a> in real time. </p>
 
@@ -53,12 +53,50 @@
 
 <p>All <strong>requests</strong> are done through <em>http</em>, so you build your url depending on what you want to search for and do the request. Currently all <strong>responses</strong> are in <em>json</em> format and you can choose pretty or minified json. </p>
 
-<h1 id="audience">Audience</h1>
+<h2 id="audience">Audience</h2>
 
 <p>This document is intended for website and mobile developers who want to use the bookshark API in order to collect and present information about greek books. 
 It provides a guide to using the API and reference material on the available parameters.</p>
 
-<h1 id="books">Books</h1>
+          <h1 id="api-key">API Key</h1>
+
+<p>All Bookshark API applications should use an API key. 
+Including a key in your request:</p>
+
+<ul>
+<li>Allows you to monitor your application&rsquo;s API usage.</li>
+<li>Enables per-key instead of per-IP-address quota limits.</li>
+<li>Ensures that we can contact you about your application if necessary.</li>
+</ul>
+
+<p>The Bookshark API uses an API key to identify your application. API keys are managed through Bookshark&rsquo;s website. To create your key:</p>
+
+<ol>
+<li><a href="http://bookshark.eu/users/sign_in">Login</a> or <a href="http://bookshark.eu/users/sign_up">signup</a> in <a href="http://bookshark.eu">bookshark</a> website.</li>
+<li>Go to <a href="http://bookshark.eu/api_keys">API Keys page</a>.</li>
+<li>Write your application&rsquo;s name and press the create button.</li>
+<li>Your API Key is ready for use.</li>
+</ol>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://bookshark.eu/api/v1/metadata_type?parameters&amp;key=API_KEY</code></p>
+
+<aside class="notice">
+You must replace `API_KEY` with your application&rsquo;s API key.
+</aside>
+
+<h2 id="usage-limits">Usage Limits</h2>
+
+<p>The Bookshark API has the following limits in place:</p>
+
+<ul>
+<li>10 keys per user.</li>
+<li>15000 requests per 24 hour period for each key.</li>
+<li>2500 requests per 24 hour period without key.</li>
+</ul>
+
+          <h1 id="books">Books</h1>
 
 <h2 id="get-a-book">Get a book</h2>
 <pre><code class="highlight shell"><span class="c"># These commands extract the same book.</span>
@@ -617,7 +655,7 @@ Don&rsquo;t forget to url encode your requests
 ie. http://bookshark.eu/api/v1/search?title=σημεια και τερατα should become http://bookshark.eu/api/v1/search?title=σημεια%20και%20τερατα before making the request.
 </aside>
 
-<h1 id="other-metadata-types">Other Metadata Types</h1>
+          <h1 id="other-metadata-types">Other Metadata Types</h1>
 
 <h2 id="author">Author</h2>
 <pre><code class="highlight shell"><span class="c"># Extracts the author with that specific id.</span>
