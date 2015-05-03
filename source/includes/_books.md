@@ -38,15 +38,11 @@ curl "http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/book/103788/"
         ]
       },
       "publisher": {
-        "name": "Εκδοτικός Οίκος Α. Α. Λιβάνη",
+        "text": "Εκδοτικός Οίκος Α. Α. Λιβάνη",
         "b_id": "271"
       },
-      "publication_year": "2006",
-      "pages": "326",
       "isbn": "960-14-1157-7",
       "isbn_13": "978-960-14-1157-6",
-      "status": "Κυκλοφορεί",
-      "price": "16,31",
       "award": [
       ],
       "description": "Τι είναι πιο επικίνδυνο, ένα όπλο ή μια πισίνα; Τι κοινό έχουν οι δάσκαλοι με τους παλαιστές του σούμο;...",
@@ -57,7 +53,27 @@ curl "http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/book/103788/"
           "b_id": "142"
         }
       ],
-      "b_id": "103788"
+      "b_id": "103788",
+      "publication": {
+        "year": "2006",
+        "version": "1",
+        "place": "Αθήνα"
+      },
+      "format": "Βιβλίο",
+      "original_language": "αγγλικά",
+      "original_title": "Freakonomics",
+      "price": "16,31",
+      "availability": "Κυκλοφορεί",
+      "last_update": "27/1/2006",
+      "series": {
+        "name": "Οικονομία",
+        "volume": null
+      },
+      "physical_description": {
+        "pages": "326",
+        "size": "21x14",
+        "cover_type": "Μαλακό εξώφυλλο"
+      }
     }
   ]
 }
@@ -117,12 +133,10 @@ Here are the metadata-hash keys for the book object:
   * b_id 
 * publication_year
 * pages
-* isbn
+* isbn(May be null, some books have isbn13 or some other id number)
 * isbn_13 (May be null, some books dont have isbn13)
 * issn (May not be there)
-* ismn (May not be there, only music books issn)
-* status
-* price
+* ismn (May not be there, only music books have ismn)
 * award (Array of awards)
   * name
   * year
@@ -132,6 +146,23 @@ Here are the metadata-hash keys for the book object:
   * ddc (Dewey Decimal Classification)
   * b_id 
 * b_id
+* publication
+  * year
+  * version
+  * place
+* format
+* original_language
+* original_title
+* price
+* availability
+* last_update
+* series
+  * name
+  * volume
+* physical_description
+  * pages
+  * size
+  * cover_type
 
 <aside class="warning">
 Be careful — Most of the above values may be null. Always check if a value is present before use.
@@ -222,9 +253,7 @@ curl "http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/book/185281/&eager
       "publication_year": "2012",
       "pages": "572",
       "isbn": "978-960-6640-84-1",
-      "isbn_13": null,
-      "status": "Κυκλοφορεί",
-      "price": "22,00",
+      "isbn_13": "978-960-6640-84-1",
       "award": [
       ],
       "description": "...Τα μυστικά της ύπαρξης, η ίδια η φύση της ζωής, δεν είναι απλώς ζήτημα βιοχημείας....",
@@ -262,7 +291,25 @@ curl "http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/book/185281/&eager
           "_comment": "More category trees are condensed..."
         }
       ],
-      "b_id": "185281"
+      "b_id": "185281",
+      "publication": {
+        "year": "2012",
+        "version": "1",
+        "place": "Αθήνα"
+      },
+      "format": "Βιβλίο",
+      "original_language": "αγγλικά",
+      "original_title": "Mathematics of Life",
+      "price": "22,00",
+      "availability": "Κυκλοφορεί",
+      "last_update": "27/12/2012",
+      "series": {
+      },
+      "physical_description": {
+        "pages": "572",
+        "size": "21x14",
+        "cover_type": "Μαλακό εξώφυλλο"
+      }      
     }
   ]
 }
@@ -319,8 +366,6 @@ Here are the metadata-hash keys for the book object:
 * isbn_13 (May be null, some books dont have isbn13)
 * issn (May not be there)
 * ismn (May not be there, only music books issn)
-* status
-* price
 * award (Array of awards)
   * name
   * year
@@ -331,6 +376,23 @@ Here are the metadata-hash keys for the book object:
   * b_id 
   * parent
 * b_id
+* publication
+  * year
+  * version
+  * place
+* format
+* original_language
+* original_title
+* price
+* availability
+* last_update
+* series
+  * name
+  * volume
+* physical_description
+  * pages
+  * size
+  * cover_type
 
 <aside class="warning">
 Warning — Eager loading of a book is very slow. It is better to normally extract a book and then extract metadata about a specific author or publisher.
