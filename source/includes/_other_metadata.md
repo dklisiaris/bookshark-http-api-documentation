@@ -4,8 +4,8 @@
 
 ```shell
 # Extracts the author with that specific id.
-curl "http://bookshark.eu/api/v1/author?id=10207"
-curl "http://bookshark.eu/api/v1/author?url=http://www.biblionet.gr/author/10207/"
+curl "http://bookshark.bibliography.gr/api/v1/author?id=10207"
+curl "http://bookshark.bibliography.gr/api/v1/author?url=http://www.biblionet.gr/author/10207/"
 ```
 
 > The above command return JSON structured like this:
@@ -36,7 +36,7 @@ This endpoint retrieves a specific author, based on its biblionet id or url.
 
 ### HTTP Request
 
-`GET http://bookshark.eu/api/v1/author?parameters`
+`GET http://bookshark.bibliography.gr/api/v1/author?parameters`
 
 ### Query Parameters
 
@@ -49,7 +49,7 @@ uri | The author's url in biblionet site.
 
 ### JSON Response
 
-The response is in the format: `{"metadata-type": [{ metadata-hash }]}`  
+The response is in the format: `{"metadata-type": [{ metadata-hash }]}`
 Here are the metadata-hash keys for the author object:
 
 * name
@@ -71,8 +71,8 @@ Be careful — Most of the above values may be null. Always check if a value is 
 
 ```shell
 # Extracts the publisher with that specific id.
-curl "http://bookshark.eu/api/v1/publisher?id=20"
-curl "http://bookshark.eu/api/v1/publisher?url=http://biblionet.gr/com/20/"
+curl "http://bookshark.bibliography.gr/api/v1/publisher?id=20"
+curl "http://bookshark.bibliography.gr/api/v1/publisher?url=http://biblionet.gr/com/20/"
 ```
 
 > The above command return JSON structured like this:
@@ -114,7 +114,7 @@ curl "http://bookshark.eu/api/v1/publisher?url=http://biblionet.gr/com/20/"
           ],
           "fax": "210 3650069",
           "email": "info@patakis.gr",
-          "website": "www.patakis.gr"         
+          "website": "www.patakis.gr"
         }
       },
       "b_id": "20"
@@ -127,7 +127,7 @@ This endpoint retrieves a specific publisher, based on its biblionet id or url.
 
 ### HTTP Request
 
-`GET http://bookshark.eu/api/v1/publisher?parameters`
+`GET http://bookshark.bibliography.gr/api/v1/publisher?parameters`
 
 ### Query Parameters
 
@@ -140,7 +140,7 @@ uri | The publisher's url in biblionet site.
 
 ### JSON Response
 
-The response is in the format: `{"metadata-type": [{ metadata-hash }]}`  
+The response is in the format: `{"metadata-type": [{ metadata-hash }]}`
 Here are the metadata-hash keys for the publisher object:
 
 * name
@@ -151,14 +151,14 @@ Here are the metadata-hash keys for the publisher object:
   * fax
   * email
   * website
-* b_id 
+* b_id
 
 ## Category
 
 ```shell
 # Extracts the category and its parents/children with that specific id.
-curl "http://bookshark.eu/api/v1/category?id=1041"
-curl "http://bookshark.eu/api/v1/category?url=http://biblionet.gr/index/1041/"
+curl "http://bookshark.bibliography.gr/api/v1/category?id=1041"
+curl "http://bookshark.bibliography.gr/api/v1/category?url=http://biblionet.gr/index/1041/"
 ```
 
 > The above command return JSON structured like this:
@@ -214,7 +214,7 @@ This endpoint retrieves a specific category's hierarchy, based on its biblionet 
 
 ### HTTP Request
 
-`GET http://bookshark.eu/api/v1/category?parameters`
+`GET http://bookshark.bibliography.gr/api/v1/category?parameters`
 
 ### Query Parameters
 
@@ -227,14 +227,14 @@ uri | The category's url in biblionet site.
 
 ### JSON Response
 
-The response is in the format: `{"metadata-type": [{metadata-hash}]}`  
+The response is in the format: `{"metadata-type": [{metadata-hash}]}`
 Here are the metadata-hash keys for the category object:
 
-Each category contains an array of category hierarchies in form: category-id => category-data 
+Each category contains an array of category hierarchies in form: category-id => category-data
 
 * name
 * ddc (Dewey Decimal Classification)
-* b_id 
+* b_id
 * parent
 
 <aside class="notice">

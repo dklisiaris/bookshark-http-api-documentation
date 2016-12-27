@@ -4,9 +4,9 @@
 
 ```shell
 # These commands extract the same book.
-curl "http://bookshark.eu/api/v1/book?isbn=960-14-1157-7"
-curl "http://bookshark.eu/api/v1/book?id=103788"
-curl "http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/book/103788/"
+curl "http://bookshark.bibliography.gr/api/v1/book?isbn=960-14-1157-7"
+curl "http://bookshark.bibliography.gr/api/v1/book?id=103788"
+curl "http://bookshark.bibliography.gr/api/v1/book?uri=http://biblionet.gr/book/103788/"
 
 ```
 
@@ -83,7 +83,7 @@ This endpoint retrieves a specific book, based on its isbn, its biblionet id or 
 
 ### HTTP Request
 
-`GET http://bookshark.eu/api/v1/book?parameters`
+`GET http://bookshark.bibliography.gr/api/v1/book?parameters`
 
 ### Query Parameters
 
@@ -100,15 +100,15 @@ eager | 0 | If set to 1, it activates eager book extraction.
 
 Generally the preferable option is getting books by isbn. If the biblionet id is known then thats the fastest method. Here are some request examples which fetch the same book:
 
-`GET http://bookshark.eu/api/v1/book?isbn=960-14-1157-7`
+`GET http://bookshark.bibliography.gr/api/v1/book?isbn=960-14-1157-7`
 
-`GET http://bookshark.eu/api/v1/book?id=103788`
+`GET http://bookshark.bibliography.gr/api/v1/book?id=103788`
 
-`GET http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/book/103788/`
+`GET http://bookshark.bibliography.gr/api/v1/book?uri=http://biblionet.gr/book/103788/`
 
-`GET http://bookshark.eu/api/v1/book?isbn=978-960-14-1157-6`
+`GET http://bookshark.bibliography.gr/api/v1/book?isbn=978-960-14-1157-6`
 
-`GET http://bookshark.eu/api/v1/book?isbn=9789601411576`
+`GET http://bookshark.bibliography.gr/api/v1/book?isbn=9789601411576`
 
 
 <aside class="success">
@@ -130,7 +130,7 @@ Here are the metadata-hash keys for the book object:
   * job-hash (A hash in the form of job_name => [Array of authors])
 * publisher
   * name
-  * b_id 
+  * b_id
 * publication_year
 * pages
 * isbn(May be null, some books have isbn13 or some other id number)
@@ -144,7 +144,7 @@ Here are the metadata-hash keys for the book object:
 * category (Array of categories)
   * name
   * ddc (Dewey Decimal Classification)
-  * b_id 
+  * b_id
 * b_id
 * publication
   * year
@@ -172,9 +172,9 @@ Be careful — Most of the above values may be null. Always check if a value is 
 
 ```shell
 # These commands eager load the same book.
-curl "http://bookshark.eu/api/v1/book?isbn=978-960-6640-84-1&eager=1"
-curl "http://bookshark.eu/api/v1/book?id=185281&eager=1"
-curl "http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/book/185281/&eager=1"
+curl "http://bookshark.bibliography.gr/api/v1/book?isbn=978-960-6640-84-1&eager=1"
+curl "http://bookshark.bibliography.gr/api/v1/book?id=185281&eager=1"
+curl "http://bookshark.bibliography.gr/api/v1/book?uri=http://biblionet.gr/book/185281/&eager=1"
 
 ```
 
@@ -309,7 +309,7 @@ curl "http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/book/185281/&eager
         "pages": "572",
         "size": "21x14",
         "cover_type": "Μαλακό εξώφυλλο"
-      }      
+      }
     }
   ]
 }
@@ -322,15 +322,15 @@ You can enable eager loading by set eager parameter to 1.
 
 ### Some example requests
 
-`GET http://bookshark.eu/api/v1/book?isbn=960-14-1157-7&eager=1`
+`GET http://bookshark.bibliography.gr/api/v1/book?isbn=960-14-1157-7&eager=1`
 
-`GET http://bookshark.eu/api/v1/book?id=103788&eager=1`
+`GET http://bookshark.bibliography.gr/api/v1/book?id=103788&eager=1`
 
-`GET http://bookshark.eu/api/v1/book?isbn=978-960-14-1157-6&eager=1`
+`GET http://bookshark.bibliography.gr/api/v1/book?isbn=978-960-14-1157-6&eager=1`
 
 ### JSON Response
 
-The response is in the same format as the plain book above: 
+The response is in the same format as the plain book above:
 `{"metadata-type": [{ metadata-hash }]}`, but with more attributes in authors, contributors, publishers and categories.
 Here are the metadata-hash keys for the book object:
 
@@ -359,7 +359,7 @@ Here are the metadata-hash keys for the book object:
     * fax
     * email
     * website
-  * b_id 
+  * b_id
 * publication_year
 * pages
 * isbn
@@ -373,7 +373,7 @@ Here are the metadata-hash keys for the book object:
 * category (Array of category hierarchies in form: category-id => category-data)
   * name
   * ddc (Dewey Decimal Classification)
-  * b_id 
+  * b_id
   * parent
 * b_id
 * publication
@@ -402,15 +402,15 @@ Warning — Eager loading of a book is very slow. It is better to normally extra
 
 ```shell
 # Get books with title ανδρομαχη by author ευριπιδης.
-curl "http://bookshark.eu/api/v1/search?title=ανδρομαχη&author=ευριπιδης"
+curl "http://bookshark.bibliography.gr/api/v1/search?title=ανδρομαχη&author=ευριπιδης"
 # Get books with title χομπιτ by author τολκιν (setting results to metadata is optional because it is the default type anyway).
-curl "http://bookshark.eu/api/v1/search?title=χομπιτ&author=τολκιν&results_type=metadata"
+curl "http://bookshark.bibliography.gr/api/v1/search?title=χομπιτ&author=τολκιν&results_type=metadata"
 # Get only the ids of books with title χομπιτ by author τολκιν
-curl "http://bookshark.eu/api/v1/search?title=αρχοντας&author=τολκιν&results_type=ids"
+curl "http://bookshark.bibliography.gr/api/v1/search?title=αρχοντας&author=τολκιν&results_type=ids"
 # Get books by author arthur doyle, published after 2010.
-curl "http://bookshark.eu/api/v1/search?author=arthur%20doyle&after_year=2010"
+curl "http://bookshark.bibliography.gr/api/v1/search?author=arthur%20doyle&after_year=2010"
 # Get books with isbn 978-960-14-1157-6
-curl "http://bookshark.eu/api/v1/search?isbn=978-960-14-1157-6"
+curl "http://bookshark.bibliography.gr/api/v1/search?isbn=978-960-14-1157-6"
 
 ```
 
@@ -427,7 +427,7 @@ curl "http://bookshark.eu/api/v1/search?isbn=978-960-14-1157-6"
     {
       "title": "Σημεία και τέρατα της οικονομίας",
       "subtitle": "Η κρυφή πλευρά των πάντων",
-      "... Rest of Metadata ...": "... condensed ..."     
+      "... Rest of Metadata ...": "... condensed ..."
     },
     {
       "title": "Και άλλα σημεία και τέρατα από την ιστορία",
@@ -437,7 +437,7 @@ curl "http://bookshark.eu/api/v1/search?isbn=978-960-14-1157-6"
     {
       "title": "Σημεία και τέρατα από την ιστορία",
       "subtitle": null,
-      "... Rest of Metadata ...": "... condensed ..."      
+      "... Rest of Metadata ...": "... condensed ..."
     }
   ]
 }
@@ -445,7 +445,7 @@ curl "http://bookshark.eu/api/v1/search?isbn=978-960-14-1157-6"
 
 > Results with results_type option set to ids look like this:
 
-```json 
+```json
 {
  "book": [
     "119000",
@@ -466,7 +466,7 @@ Instead of getting a specific book by providing the book's isbn or id, a search 
 
 ### HTTP Request
 
-`GET http://bookshark.eu/api/v1/search?parameters`
+`GET http://bookshark.bibliography.gr/api/v1/search?parameters`
 
 ### Query Parameters
 
@@ -478,18 +478,18 @@ isbn | The book's ISBN code.
 id | The book's id in biblionet site.
 uri | The book's url in biblionet site.
 eager | If set to 1, it activates eager book extraction.
-title | The title of book to search       
-author | The author's last name is enough for filter the search      
-publisher | The publisher of book to search 
-category | The category of book to search 
+title | The title of book to search
+author | The author's last name is enough for filter the search
+publisher | The publisher of book to search
+category | The category of book to search
 title_split | How the given title is matched, options are:<ul><li>0 The exact title phrase must by matched</li><li>1 Default - All the words in title must be matched in whatever order</li><li>2 At least one word should match</li></ul>
-book_id | Providing id means only one book should returned      
-isbn | The ISBN or ISBN13 of book to search        
-author_id | ID of the selected author    
+book_id | Providing id means only one book should returned
+isbn | The ISBN or ISBN13 of book to search
+author_id | ID of the selected author
 publisher_id | ID of the selected publisher
 category_id | ID of the selected category
-after_year | Published this year or later   
-before_year | Published this year or before   
+after_year | Published this year or later
+before_year | Published this year or before
 results_type | In what form are the returned results, options are:<ul><li>metadata - (Default) Every book is extracted and an array of metadata is</li><li>ids - Only ids are returned</li></ul>
 
 <aside class="notice">
@@ -500,17 +500,17 @@ Searching and extracting several books can be very slow at times, so instead of 
 
 It is recommended to use at least two parameters if you trying to get a specific book. Here some examples of search request
 
-`GET http://bookshark.eu/api/v1/search?title=ανδρομαχη&author=ευριπιδης`
+`GET http://bookshark.bibliography.gr/api/v1/search?title=ανδρομαχη&author=ευριπιδης`
 
-`GET http://bookshark.eu/api/v1/search?title=χομπιτ&author=τολκιν&results_type=metadata`
+`GET http://bookshark.bibliography.gr/api/v1/search?title=χομπιτ&author=τολκιν&results_type=metadata`
 
-`GET http://bookshark.eu/api/v1/search?author=arthur%20doyle&after_year=2010`
+`GET http://bookshark.bibliography.gr/api/v1/search?author=arthur%20doyle&after_year=2010`
 
-`GET http://bookshark.eu/api/v1/search?isbn=978-960-14-1157-6`
+`GET http://bookshark.bibliography.gr/api/v1/search?isbn=978-960-14-1157-6`
 
-`GET http://bookshark.eu/api/v1/search?title=αρχοντας&author=τολκιν&results_type=ids`
+`GET http://bookshark.bibliography.gr/api/v1/search?title=αρχοντας&author=τολκιν&results_type=ids`
 
 <aside class="warning">
-Don't forget to url encode your requests 
-ie. http://bookshark.eu/api/v1/search?title=σημεια και τερατα should become http://bookshark.eu/api/v1/search?title=σημεια%20και%20τερατα before making the request.
+Don't forget to url encode your requests
+ie. http://bookshark.bibliography.gr/api/v1/search?title=σημεια και τερατα should become http://bookshark.bibliography.gr/api/v1/search?title=σημεια%20και%20τερατα before making the request.
 </aside>
