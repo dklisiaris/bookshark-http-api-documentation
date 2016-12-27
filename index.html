@@ -37,8 +37,8 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='http://bookshark.eu'>Bookshark Home</a></li>
-            <li><a href='http://bookshark.eu/api_keys'>Sign Up for a Developer Key</a></li>
+            <li><a href='http://bookshark.bibliography.gr'>Bookshark Home</a></li>
+            <li><a href='http://bookshark.bibliography.gr/api_keys'>Sign Up for a Developer Key</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
@@ -60,7 +60,7 @@ It provides a guide to using the API and reference material on the available par
 
           <h1 id="api-key">API Key</h1>
 
-<p>All Bookshark API applications should use an API key. 
+<p>All Bookshark API applications should use an API key.
 Including a key in your request:</p>
 
 <ul>
@@ -72,15 +72,15 @@ Including a key in your request:</p>
 <p>The Bookshark API uses an API key to identify your application. API keys are managed through Bookshark&rsquo;s website. To create your key:</p>
 
 <ol>
-<li><a href="http://bookshark.eu/users/sign_in">Login</a> or <a href="http://bookshark.eu/users/sign_up">signup</a> in <a href="http://bookshark.eu">bookshark</a> website.</li>
-<li>Go to <a href="http://bookshark.eu/api_keys">API Keys page</a>.</li>
+<li><a href="http://bookshark.bibliography.gr/users/sign_in">Login</a> or <a href="http://bookshark.bibliography.gr/users/sign_up">signup</a> in <a href="http://bookshark.bibliography.gr">bookshark</a> website.</li>
+<li>Go to <a href="http://bookshark.bibliography.gr/api_keys">API Keys page</a>.</li>
 <li>Write your application&rsquo;s name and press the create button.</li>
 <li>Your API Key is ready for use.</li>
 </ol>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/metadata_type?parameters&amp;key=API_KEY</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/metadata_type?parameters&amp;key=API_KEY</code></p>
 
 <aside class="notice">
 You must replace `API_KEY` with your application&rsquo;s API key.
@@ -100,9 +100,9 @@ You must replace `API_KEY` with your application&rsquo;s API key.
 
 <h2 id="get-a-book">Get a book</h2>
 <pre><code class="highlight shell"><span class="c"># These commands extract the same book.</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/book?isbn=960-14-1157-7"</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/book?id=103788"</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/book/103788/"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/book?isbn=960-14-1157-7"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/book?id=103788"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/book?uri=http://biblionet.gr/book/103788/"</span>
 
 </code></pre>
 
@@ -179,7 +179,7 @@ curl <span class="s2">"http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/b
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?parameters</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/book?parameters</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -218,15 +218,15 @@ curl <span class="s2">"http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/b
 
 <p>Generally the preferable option is getting books by isbn. If the biblionet id is known then thats the fastest method. Here are some request examples which fetch the same book:</p>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?isbn=960-14-1157-7</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/book?isbn=960-14-1157-7</code></p>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?id=103788</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/book?id=103788</code></p>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/book/103788/</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/book?uri=http://biblionet.gr/book/103788/</code></p>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?isbn=978-960-14-1157-6</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/book?isbn=978-960-14-1157-6</code></p>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?isbn=9789601411576</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/book?isbn=9789601411576</code></p>
 
 <aside class="success">
 Remember — ISBN can contain dashes or be a plain number. ISBN-13 is also acceptable.
@@ -256,7 +256,7 @@ Here are the metadata-hash keys for the book object:</p>
 
 <ul>
 <li>name</li>
-<li>b_id </li>
+<li>b_id</li>
 </ul></li>
 <li>publication_year</li>
 <li>pages</li>
@@ -276,7 +276,7 @@ Here are the metadata-hash keys for the book object:</p>
 <ul>
 <li>name</li>
 <li>ddc (Dewey Decimal Classification)</li>
-<li>b_id </li>
+<li>b_id</li>
 </ul></li>
 <li>b_id</li>
 <li>publication
@@ -313,9 +313,9 @@ Be careful — Most of the above values may be null. Always check if a value is 
 
 <h2 id="eager-load-a-book">Eager load a book</h2>
 <pre><code class="highlight shell"><span class="c"># These commands eager load the same book.</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/book?isbn=978-960-6640-84-1&amp;eager=1"</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/book?id=185281&amp;eager=1"</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/book/185281/&amp;eager=1"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/book?isbn=978-960-6640-84-1&amp;eager=1"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/book?id=185281&amp;eager=1"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/book?uri=http://biblionet.gr/book/185281/&amp;eager=1"</span>
 
 </code></pre>
 
@@ -450,7 +450,7 @@ curl <span class="s2">"http://bookshark.eu/api/v1/book?uri=http://biblionet.gr/b
         </span><span class="s2">"pages"</span><span class="p">:</span><span class="w"> </span><span class="s2">"572"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"21x14"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"cover_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Μαλακό εξώφυλλο"</span><span class="w">
-      </span><span class="p">}</span><span class="w">      
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -463,15 +463,15 @@ You can enable eager loading by set eager parameter to 1.</p>
 
 <h3 id="some-example-requests">Some example requests</h3>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?isbn=960-14-1157-7&amp;eager=1</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/book?isbn=960-14-1157-7&amp;eager=1</code></p>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?id=103788&amp;eager=1</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/book?id=103788&amp;eager=1</code></p>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/book?isbn=978-960-14-1157-6&amp;eager=1</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/book?isbn=978-960-14-1157-6&amp;eager=1</code></p>
 
 <h3 id="json-response">JSON Response</h3>
 
-<p>The response is in the same format as the plain book above: 
+<p>The response is in the same format as the plain book above:
 <code class="prettyprint">{&quot;metadata-type&quot;: [{ metadata-hash }]}</code>, but with more attributes in authors, contributors, publishers and categories.
 Here are the metadata-hash keys for the book object:</p>
 
@@ -509,7 +509,7 @@ Here are the metadata-hash keys for the book object:</p>
 <li>fax</li>
 <li>email</li>
 <li>website</li>
-<li>b_id </li>
+<li>b_id</li>
 </ul></li>
 <li>publication_year</li>
 <li>pages</li>
@@ -529,7 +529,7 @@ Here are the metadata-hash keys for the book object:</p>
 <ul>
 <li>name</li>
 <li>ddc (Dewey Decimal Classification)</li>
-<li>b_id </li>
+<li>b_id</li>
 <li>parent</li>
 </ul></li>
 <li>b_id</li>
@@ -567,15 +567,15 @@ Warning — Eager loading of a book is very slow. It is better to normally extra
 
 <h2 id="search-books">Search Books</h2>
 <pre><code class="highlight shell"><span class="c"># Get books with title ανδρομαχη by author ευριπιδης.</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/search?title=ανδρομαχη&amp;author=ευριπιδης"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/search?title=ανδρομαχη&amp;author=ευριπιδης"</span>
 <span class="c"># Get books with title χομπιτ by author τολκιν (setting results to metadata is optional because it is the default type anyway).</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/search?title=χομπιτ&amp;author=τολκιν&amp;results_type=metadata"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/search?title=χομπιτ&amp;author=τολκιν&amp;results_type=metadata"</span>
 <span class="c"># Get only the ids of books with title χομπιτ by author τολκιν</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/search?title=αρχοντας&amp;author=τολκιν&amp;results_type=ids"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/search?title=αρχοντας&amp;author=τολκιν&amp;results_type=ids"</span>
 <span class="c"># Get books by author arthur doyle, published after 2010.</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/search?author=arthur%20doyle&amp;after_year=2010"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/search?author=arthur%20doyle&amp;after_year=2010"</span>
 <span class="c"># Get books with isbn 978-960-14-1157-6</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/search?isbn=978-960-14-1157-6"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/search?isbn=978-960-14-1157-6"</span>
 
 </code></pre>
 
@@ -592,7 +592,7 @@ curl <span class="s2">"http://bookshark.eu/api/v1/search?isbn=978-960-14-1157-6"
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Σημεία και τέρατα της οικονομίας"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Η κρυφή πλευρά των πάντων"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"... Rest of Metadata ..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"... condensed ..."</span><span class="w">     
+      </span><span class="s2">"... Rest of Metadata ..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"... condensed ..."</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Και άλλα σημεία και τέρατα από την ιστορία"</span><span class="p">,</span><span class="w">
@@ -602,7 +602,7 @@ curl <span class="s2">"http://bookshark.eu/api/v1/search?isbn=978-960-14-1157-6"
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Σημεία και τέρατα από την ιστορία"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"subtitle"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"... Rest of Metadata ..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"... condensed ..."</span><span class="w">      
+      </span><span class="s2">"... Rest of Metadata ..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"... condensed ..."</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -630,7 +630,7 @@ curl <span class="s2">"http://bookshark.eu/api/v1/search?isbn=978-960-14-1157-6"
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/search?parameters</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/search?parameters</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -720,27 +720,27 @@ Searching and extracting several books can be very slow at times, so instead of 
 
 <p>It is recommended to use at least two parameters if you trying to get a specific book. Here some examples of search request</p>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/search?title=ανδρομαχη&amp;author=ευριπιδης</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/search?title=ανδρομαχη&amp;author=ευριπιδης</code></p>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/search?title=χομπιτ&amp;author=τολκιν&amp;results_type=metadata</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/search?title=χομπιτ&amp;author=τολκιν&amp;results_type=metadata</code></p>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/search?author=arthur%20doyle&amp;after_year=2010</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/search?author=arthur%20doyle&amp;after_year=2010</code></p>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/search?isbn=978-960-14-1157-6</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/search?isbn=978-960-14-1157-6</code></p>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/search?title=αρχοντας&amp;author=τολκιν&amp;results_type=ids</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/search?title=αρχοντας&amp;author=τολκιν&amp;results_type=ids</code></p>
 
 <aside class="warning">
-Don&rsquo;t forget to url encode your requests 
-ie. http://bookshark.eu/api/v1/search?title=σημεια και τερατα should become http://bookshark.eu/api/v1/search?title=σημεια%20και%20τερατα before making the request.
+Don&rsquo;t forget to url encode your requests
+ie. http://bookshark.bibliography.gr/api/v1/search?title=σημεια και τερατα should become http://bookshark.bibliography.gr/api/v1/search?title=σημεια%20και%20τερατα before making the request.
 </aside>
 
           <h1 id="other-metadata-types">Other Metadata Types</h1>
 
 <h2 id="author">Author</h2>
 <pre><code class="highlight shell"><span class="c"># Extracts the author with that specific id.</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/author?id=10207"</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/author?url=http://www.biblionet.gr/author/10207/"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/author?id=10207"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/author?url=http://www.biblionet.gr/author/10207/"</span>
 </code></pre>
 
 <blockquote>
@@ -771,7 +771,7 @@ curl <span class="s2">"http://bookshark.eu/api/v1/author?url=http://www.biblione
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/author?parameters</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/author?parameters</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -795,7 +795,7 @@ curl <span class="s2">"http://bookshark.eu/api/v1/author?url=http://www.biblione
 
 <h3 id="json-response">JSON Response</h3>
 
-<p>The response is in the format: <code class="prettyprint">{&quot;metadata-type&quot;: [{ metadata-hash }]}</code><br>
+<p>The response is in the format: <code class="prettyprint">{&quot;metadata-type&quot;: [{ metadata-hash }]}</code>
 Here are the metadata-hash keys for the author object:</p>
 
 <ul>
@@ -820,8 +820,8 @@ Be careful — Most of the above values may be null. Always check if a value is 
 
 <h2 id="publisher">Publisher</h2>
 <pre><code class="highlight shell"><span class="c"># Extracts the publisher with that specific id.</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/publisher?id=20"</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/publisher?url=http://biblionet.gr/com/20/"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/publisher?id=20"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/publisher?url=http://biblionet.gr/com/20/"</span>
 </code></pre>
 
 <blockquote>
@@ -863,7 +863,7 @@ curl <span class="s2">"http://bookshark.eu/api/v1/publisher?url=http://biblionet
           </span><span class="p">],</span><span class="w">
           </span><span class="s2">"fax"</span><span class="p">:</span><span class="w"> </span><span class="s2">"210 3650069"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"info@patakis.gr"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"website"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.patakis.gr"</span><span class="w">         
+          </span><span class="s2">"website"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.patakis.gr"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="s2">"b_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="w">
@@ -876,7 +876,7 @@ curl <span class="s2">"http://bookshark.eu/api/v1/publisher?url=http://biblionet
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/publisher?parameters</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/publisher?parameters</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -900,7 +900,7 @@ curl <span class="s2">"http://bookshark.eu/api/v1/publisher?url=http://biblionet
 
 <h3 id="json-response">JSON Response</h3>
 
-<p>The response is in the format: <code class="prettyprint">{&quot;metadata-type&quot;: [{ metadata-hash }]}</code><br>
+<p>The response is in the format: <code class="prettyprint">{&quot;metadata-type&quot;: [{ metadata-hash }]}</code>
 Here are the metadata-hash keys for the publisher object:</p>
 
 <ul>
@@ -915,13 +915,13 @@ Here are the metadata-hash keys for the publisher object:</p>
 <li>email</li>
 <li>website</li>
 </ul></li>
-<li>b_id </li>
+<li>b_id</li>
 </ul>
 
 <h2 id="category">Category</h2>
 <pre><code class="highlight shell"><span class="c"># Extracts the category and its parents/children with that specific id.</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/category?id=1041"</span>
-curl <span class="s2">"http://bookshark.eu/api/v1/category?url=http://biblionet.gr/index/1041/"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/category?id=1041"</span>
+curl <span class="s2">"http://bookshark.bibliography.gr/api/v1/category?url=http://biblionet.gr/index/1041/"</span>
 </code></pre>
 
 <blockquote>
@@ -979,7 +979,7 @@ curl <span class="s2">"http://bookshark.eu/api/v1/category?url=http://biblionet.
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://bookshark.eu/api/v1/category?parameters</code></p>
+<p><code class="prettyprint">GET http://bookshark.bibliography.gr/api/v1/category?parameters</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -1003,15 +1003,15 @@ curl <span class="s2">"http://bookshark.eu/api/v1/category?url=http://biblionet.
 
 <h3 id="json-response">JSON Response</h3>
 
-<p>The response is in the format: <code class="prettyprint">{&quot;metadata-type&quot;: [{metadata-hash}]}</code><br>
+<p>The response is in the format: <code class="prettyprint">{&quot;metadata-type&quot;: [{metadata-hash}]}</code>
 Here are the metadata-hash keys for the category object:</p>
 
-<p>Each category contains an array of category hierarchies in form: category-id =&gt; category-data </p>
+<p>Each category contains an array of category hierarchies in form: category-id =&gt; category-data</p>
 
 <ul>
 <li>name</li>
 <li>ddc (Dewey Decimal Classification)</li>
-<li>b_id </li>
+<li>b_id</li>
 <li>parent</li>
 </ul>
 
